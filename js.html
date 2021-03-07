@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script>
+		       //验证密码强度
+		       function checkStrength{
+		           var strength=document.getElementById("strength");
+		           var psw1=document.getElementById("psw1").value;
+		           var length=psw1.length;
+		           if(length>=1 && length<3){
+		               strength.innerHTML="弱"
+		           }
+		           else if(length>=3 && length<6){
+		               strength.innerHTML="中"
+		           }
+		           else{
+		               strength.innerHTML="强"
+		           }
+		       }
+		       //验证两次输入密码是否一致
+		       function checkPSW{
+		           var psw1 = document.getElementById("psw1").value;
+		           var psw2 =document.getElementById("psw2").value;
+		           var pswInfo = document.getElementById("pswInfo");
+		           if(psw1!=psw2){
+		               pswInfo.innerHTML='两次输入的密码必须一致'
+		           }
+		       }
+		       //注册方法
+		       function reg(){
+		           var username = document.getElementById("username").value;
+		           var email = document.getElementById("email").value;
+		           var gender = document.getElementById("gender").value;
+		           var birth = document.getElementById("birth").value;
+		           var address = document.getElementById("address").value;
+		           if(document.getElementById("username").checkVaLidity()//判断用户名是否通过校验
+		           && document.getElementById("psw1").checkVaLidity()//判断用户密码是否通过校验
+		           && document.getElementById("psw2").checkVaLidity()//判断确认密码是否通过校验)
+		           && document.getElementById("email".checkVaLidity()//判断电子邮箱是否通过校验
+		           && document.getElementById("birth").checkVaLidity()//判断生日是否通过校验
+		           && document.getElementById("address").checkVaLidity()//判断地址是否通过校验
+		           )
+		           {
+		             alert{
+		                 '确认注册信息\n'+'用户名：'+username+'\n'+'电子邮箱：'+email+'\n'+
+		                 '生日：'+birth+'\n'+'住址：'+address+'\n'
+		             }  
+		           }
+		       }
+		   </script>
+	</head>
+	<body>
+	</body>
+</html>

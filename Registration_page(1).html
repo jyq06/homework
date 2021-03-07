@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>注册页面</title>
+		<link rel="stylesheet" href="js.html">
+		 <style>
+				#frame{
+					width: 600px;
+					height: 700px;
+					text-align: center;
+					margin:auto;
+				}
+		        #demo1{
+		            padding: 5px;
+		            width: 600px;
+					margin:auto;
+					
+		        }
+		        #demo2{
+		            margin-top: 10px;
+		            margin-bottom: 20px;
+					margin：auto;
+		        }
+			 	#box{
+					padding-left: 100px;
+
+				}
+		    </style>
+	</head>
+	<body>
+		
+		    <form id="frame">
+		        <fieldset>
+		        <legend >
+		            用户注册页面
+		        </legend>
+		        <center>
+					<div id = 'box'>
+		            <div id="demo1">
+		                <h4>用户登录信息</h4>
+		                <table  width="100%">
+		                    <tr>
+		                        <td width="20%" >用户名</td>
+		                        <td width="40%">
+		                            <input type="text" id="username" required="true">
+		                        </td>
+		                        <td width="40%">
+		                            <font color="red">*</font>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td>邮箱</td>
+		                        <td>
+		                            <input type="text" id="email" required="true">
+		                        </td>
+		                        <td>
+		                            <font color="red">*</font>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td>密码</td> 
+		                        <td>
+		                            <input type="password" id="psw1" required="true" onkeydown="checkStrength">
+		                        </td>
+		                        <td>
+		                            <font color="red">*</font>
+		                            <span id="strength"></span>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td>确认密码</td>
+		                        <td>
+		                            <input type="password" id="psw2" required="true" onblur="checkPSW">
+		                        </td>
+		                        <td>
+		                            <font color="red">*</font>
+		                            <span id="pswInfo"></span>
+		                        </td>
+		                    </tr>
+		                </table>
+		            </div>
+		            <div id="demo2">
+		                <h3>用户基本信息</h3>
+		                <table width="100%" >
+		                    <tr>
+		                        <td width="20%">性别</td>
+		                        <td width="40%">
+		                            <select id="gender">
+		                                <option value="男">男</option>
+		                                <option value="女">女</option>
+		                            </select>
+		                        </td>
+		                        <td width="40%"></td>
+		                    </tr>
+		                    <tr>
+		                        <td>出生年月</td>
+		                        <td>
+		                            <input type="date" id="birth">
+		                        </td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>住址</td>
+		                        <td>
+		                            <input type="text" id="address">
+		                        </td>
+		                        <td></td>
+		                    </tr>
+		                </table>
+		            </div>
+		            <input type="submit" value="注册新用户" onclick="reg()">
+		            <input type="reset" value="重置">
+		        </center>
+		    </fieldset>
+				</div>
+		    </form>
+	</body>
+</html>
