@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>注册与登录</title>
+		<script type="text/javascript">
+			var DB;
+			//创建数据库方法
+			function initDatabase() {
+			    if (!window.openDatabase) //是否现有数据库
+				{
+			        alert('浏览器不支持Web SQL数据库.');
+			    } else 
+				{
+			        var dbName = 'mydb'; //定义数据库名称
+			        var dbVersion = '1.0'; //定义数据库版本
+			        var dbDec = 'DEMO Database'; //定义数据库说明信息
+			        var dbSize = 100000; //  定义数据库大小
+			        DB = openDatabase(dbName, dbVersion, dbDec, dbSize); //创建数据库，并调用showResult方法
+			    }
+			}
+			//创建数据表
+			function createTable()
+			{
+				DB.transaction(function(tx){
+					tx.executeSql('create table if not exists USERINFO(USERNAME,PASSWORD,EMAIL,HOBBY)');
+				});
+			}
+			//注册方法
+			function register()
+			{
+				
+				initDatabase();
+				createTable();
+				var username = document.getElementById("user").value;
+				var password = document.getElementById("psw").value;
+				var email = document.getElementById("email").value;
+				var hobby = document.getElementById("hobby").value;
+				DB.transaction(function(tx){
+					tx.executeSql(
+							'select * from USERINFO where USERNAME=?',
+							[username],
+							function(tx,rs){
+								if (rs.rows.length>0) //用户名已经存在
+								{
+									alert("该用户名已经存在，请使用其他用户名注册。");
+								}
+								else
+								{
+									DB.transaction(function(tx){
+										tx.executeSql( //将新用户注册信息插入数据库
+											'insert into USERINFO(USERNAME,PASSWORD,EMAIL,HOBBY) values(?,?,?,?)',
+											[username,password,email,hobby],
+											function(tx,rs){
+												alert('注册成功');
+											},
+											function(tx,error){
+												alert('注册失败');
+											}
+										);
+									});
+								}
+							}
+					);
+				});
+			}
+			//登录方法
+			function login()
+			{
+				initDatabase();
+				var username = document.getElementById("username").value;
+				var password = document.getElementById("password").value;
+				DB.transaction(function(tx){
+					tx.executeSql(
+						'select * from USERINFO where USERNAME=? and PASSWORD=?',
+						[username,password],
+						function(tx,rs){
+							if (rs.rows.length==0) //未查询到指定用户名与密码的用户信息
+							{
+								alert("登录失败");
+							}
+							else
+							{
+								var msg ='';
+								for(var i=0;i<rs.rows.length;i++)
+								{
+									msg += '您好，'+rs.rows.item(i).USERNAME 
+										+'\n\n您的email是 : ' +rs.rows.item(i).EMAIL
+										+'\n\n您的爱好是：'+rs.rows.item(i).HOBBY;
+								}
+								alert(msg);
+							}
+						}
+					);
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div style="width: 800px;height: 300px;margin: auto;">
+			<div style="width: 300px;height: 300px;float: left;border-style:outset;">
+				<h2 style="text-align: center;">注册新用户</h2>
+				<table style="margin: auto; margin-top: 1.875rem;">
+					<tr>
+						<td>用户名</td>
+						<td>
+							<input type="text" name="用户名" id="user">
+						</td>
+					</tr>
+					<tr>
+						<td>密码</td>
+						<td>
+							<input type="password" name="密码" id="psw">
+						</td>
+					</tr>
+					<tr>
+						<td>电子邮件</td>
+						<td><input type="text" name="电子邮件" id="email"/></td>
+					</tr>
+					<tr>
+						<td>地址</td>
+						<td><input type="text" name="兴趣爱好" id="hobby" /></td>
+					</tr>
+					<tr >
+						<td colspan="2" align="center" >
+							<input type="button" name="registration" value="注册账户" onclick="register()"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div style="width: 300px;height: 300px;margin-left:100px;float: left;border-style:outset;">
+				<h2 style="text-align: center;">用户登录</h2>
+				<table style="margin: auto; margin-top: 1.875rem;">
+					<tr>
+						<td>用户名</td>
+						<td>
+							<input type="text" name="username" id="un"  />
+						</td>
+						</tr>
+					<tr>
+						<td>密码</td>
+						<td>
+							<input type="password" name="password" id="pswinfo"  />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<input type="button" name="userRegidtrate" id="UR" value="用户登录" onclick="login()"/>
+						</td>
+					</tr>
+				</table>
+			</div>	
+		</div>
+			
+	</body>
+</html>
