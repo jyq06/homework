@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+		
+		</style>
+	</head>
+	<body>
+		
+		<video id="video" src="4_1.mp4" width="750" >当前浏览器不支持video元素</video>
+		<br>
+		<div id="progressTime" style="display: none;">
+			<div style="float: left;">
+				<progress id="progress" value="0" max="100" style="width: 450px;"></progress>
+			</div>
+			<div id="showTime" style="flaot:left;margin-left: 15px ;"></div>
+		</div>
+	
+		<br>
+		<input type="button" id ="btnPlay" onclick="playOrPause()" value="播放" style="display:inline-block;"/> 
+		<input type="button" id ="btnPause" onclick="Pause()" value="暂停"  style="display: none;"/> 
+		<input type="button" id ="btnacc" onclick="acc()" value="加速"/> 
+		<input type="button" id ="btndec" onclick="dec()" value="减速"/> 
+		<br>
+		<input type="image" id ="btnaddvol" onclick="addvol()" src="add.jpg"/> 
+		<input type="image" id ="btnsubcol" onclick="subvol()" src="sub.jpg"/> 
+		<progress id = "met" value="1" max="100" onclick="changevoc()" style="display: inline-block;"></meter>
+	
+		
+		
+		
+</html>
+<script>
+	//定义变量并获取该视频
+	var video=document.getElementById("video");
+	
+	//播放与暂停函数：当点击播放按钮时播放按钮消失，暂停按钮出现，同理暂停	
+	function playOrPause(){
+		video.play();
+		var pl=document.getElementById("btnPlay");
+		var pa=document.getElementById("btnPause");
+		pl.style.display = "none";
+		pa.style.display = "inline-block"
+		
+	}
+	
+	function Pause(){
+		video.pause();
+		var pl=document.getElementById("btnPlay");
+		var pa=document.getElementById("btnPause");
+		pl.style.display = "inline-block";
+		pa.style.display = "none"
+	}
+	//快速播放
+	function acc(){
+		video.playbackRate+=1;
+	}
+	//慢速播放
+	function dec(){
+		if (video.playbackRate >1){
+			video.playbackRate-=1;
+		}
+		
+	}
+
+	//提高音量
+	function addvol(){
+		if (video.volume+0.1>1){
+			video.volume=1;
+		}
+		else{
+			video.volume+=0.1;
+		}
+		met = document.getElementById("met");
+		met.value = Math.floor(100*video.volume);
+	}
+	//减低音量
+	function subvol(){
+		if (video.volume-0.1<0){
+			video.volume=0;
+		}
+		else{
+			video.volume-=0.1;
+		}
+		met = document.getElementById("met");
+		met.value = Math.floor(100*video.volume);
+	}
+	
+	//音量进度条
+	function changevoc(event){
+		var e = event || window.event;
+		var time;
+		var delay = 1000;
+		var current = 1;
+		met = document.getElementById("met");
+		time = start("show();")
+		r = e.offsetX/met.offsetWidth;//当前鼠标所在的横坐标/音量进度条的宽度
+		met.value = Math.floor(100*r);//当前进度条的值为鼠标所在音量长度的几分之几
+		video.volume = r//当前音量值为鼠标点击的位置
+		
+	}
+	
+</script>
